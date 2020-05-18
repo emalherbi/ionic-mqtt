@@ -9,7 +9,7 @@ declare const document: any;
 export class MQTTService {
 
   public client: any;
-  private scripts: any = {};
+  private scripts: any = {}; 
   private ScriptStore: Scripts[] = [
     {
       name: 'paho_mqtt', src: 'https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js'
@@ -70,6 +70,8 @@ export class MQTTService {
       port: number,
       clientId: string,
       path?: string,
+      userName?: string,
+      password?: string,
     }): any {
     return this._load('paho_mqtt').then(data => {
       // set callback handlers
@@ -78,7 +80,11 @@ export class MQTTService {
       this.client.onMessageArrived = onMessageArrived.bind(this);
       // client connect and subscribe
       // console.log(this.client);
-      return this.client.connect({onSuccess: this._onConnect.bind(this, TOPIC)});
+      return this.client.connect({
+        userName: MQTT_CONFIG.userName,
+				password: MQTT_CONFIG.password,
+        onSuccess: this._onConnect.bind(this, TOPIC)
+      });
     }).catch(error => {
       console.log(error);
     });
