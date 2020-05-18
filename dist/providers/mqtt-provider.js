@@ -78,7 +78,11 @@ var MQTTService = /** @class */ (function () {
             _this.client.onMessageArrived = onMessageArrived.bind(_this);
             // client connect and subscribe
             // console.log(this.client);
-            return _this.client.connect({ onSuccess: _this._onConnect.bind(_this, TOPIC) });
+            return _this.client.connect({
+                userName: MQTT_CONFIG.userName || '',
+                password: MQTT_CONFIG.password || '',
+                onSuccess: _this._onConnect.bind(_this, TOPIC)
+            });
         }).catch(function (error) {
             console.log(error);
         });

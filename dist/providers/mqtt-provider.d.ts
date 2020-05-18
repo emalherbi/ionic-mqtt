@@ -10,6 +10,8 @@ export declare class MQTTService {
         port: number;
         clientId: string;
         path?: string;
+        userName?: string;
+        password?: string;
     }): any;
     publishMessage(topic: string, playload: string, qos?: number, retained?: boolean): void;
     sendMessage(topic: string, playload: string, qos?: number, retained?: boolean): void;
