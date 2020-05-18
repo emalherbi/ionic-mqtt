@@ -81,8 +81,8 @@ export class MQTTService {
       // client connect and subscribe
       // console.log(this.client);
       return this.client.connect({
-        userName: MQTT_CONFIG.userName,
-				password: MQTT_CONFIG.password,
+        userName: MQTT_CONFIG.userName || '',
+        password: MQTT_CONFIG.password || '',
         onSuccess: this._onConnect.bind(this, TOPIC)
       });
     }).catch(error => {
