@@ -81,13 +81,7 @@ var JSUtilsService = /** @class */ (function () {
         });
     };
     JSUtilsService.prototype.load = function (name) {
-        return this._load(name)
-            .then(function (data) {
-            console.log(data);
-        })
-            .catch(function (error) {
-            console.error(error);
-        });
+        return this._load(name);
     };
     JSUtilsService = __decorate([
         Injectable(),

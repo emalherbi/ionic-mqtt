@@ -72,12 +72,6 @@ export class JSUtilsService {
   }
 
   public load(name: string): any {
-    return this._load(name)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    return this._load(name);
   }
 }
