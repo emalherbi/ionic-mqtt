@@ -7,10 +7,10 @@ import { IonicModule } from "@ionic/angular";
   declarations: [],
   exports: [],
 })
-export class IonicMqttModule {
+export class JSUtilsModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: IonicMqttModule,
+      ngModule: JSUtilsModule,
       providers: [JSUtilsService],
     };
   }

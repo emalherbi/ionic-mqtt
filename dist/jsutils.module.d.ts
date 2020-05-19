@@ -1,4 +1,4 @@
 import { ModuleWithProviders } from "@angular/core";
-export declare class IonicMqttModule {
+export declare class JSUtilsModule {
     static forRoot(): ModuleWithProviders;
 }
