@@ -8,8 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from "@angular/core";
-var MQTTService = /** @class */ (function () {
-    function MQTTService() {
+var JSUtilsService = /** @class */ (function () {
+    function JSUtilsService() {
         var _this = this;
         this.scripts = {};
         [
@@ -24,7 +24,7 @@ var MQTTService = /** @class */ (function () {
             };
         });
     }
-    MQTTService.prototype._load = function () {
+    JSUtilsService.prototype._load = function () {
         var _this = this;
         var scripts = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -34,7 +34,7 @@ var MQTTService = /** @class */ (function () {
         scripts.forEach(function (script) { return promises.push(_this._script(script)); });
         return Promise.all(promises);
     };
-    MQTTService.prototype._script = function (name) {
+    JSUtilsService.prototype._script = function (name) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.scripts[name].loaded) {
@@ -80,23 +80,20 @@ var MQTTService = /** @class */ (function () {
             }
         });
     };
-    MQTTService.prototype.clientMqtt = function (CONFIG) {
-        return this._load("mqtt")
+    JSUtilsService.prototype.load = function (name) {
+        return this._load(name)
             .then(function (data) {
-            return mqtt.connect(CONFIG.host, {
-                username: CONFIG.username,
-                password: CONFIG.password,
-            });
+            console.log(data);
         })
             .catch(function (error) {
-            console.log(error);
+            console.error(error);
         });
     };
-    MQTTService = __decorate([
+    JSUtilsService = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [])
-    ], MQTTService);
-    return MQTTService;
+    ], JSUtilsService);
+    return JSUtilsService;
 }());
-export { MQTTService };
-//# sourceMappingURL=mqtt-provider.js.map
+export { JSUtilsService };
+//# sourceMappingURL=jsutils-provider.js.map

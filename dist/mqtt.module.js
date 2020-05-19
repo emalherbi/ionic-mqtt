@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { NgModule } from "@angular/core";
-import { MQTTService } from "./providers/mqtt-provider";
+import { JSUtilsService } from "./providers/jsutils-provider";
 import { IonicModule } from "@ionic/angular";
 var IonicMqttModule = /** @class */ (function () {
     function IonicMqttModule() {
@@ -14,7 +14,7 @@ var IonicMqttModule = /** @class */ (function () {
     IonicMqttModule.forRoot = function () {
         return {
             ngModule: IonicMqttModule_1,
-            providers: [MQTTService],
+            providers: [JSUtilsService],
         };
     };
     var IonicMqttModule_1;
