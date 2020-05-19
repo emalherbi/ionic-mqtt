@@ -1,5 +1,4 @@
 export declare class MQTTService {
-    client: any;
     private scripts;
     constructor();
     private _load;

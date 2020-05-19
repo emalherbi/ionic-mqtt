@@ -5,7 +5,6 @@ declare const document: any;
 
 @Injectable()
 export class MQTTService {
-  public client: any;
   private scripts: any = {};
 
   constructor() {
@@ -80,12 +79,10 @@ export class MQTTService {
   }): any {
     return this._load("mqtt")
       .then((data) => {
-        this.client = mqtt.connect(CONFIG.host, {
+        return mqtt.connect(CONFIG.host, {
           username: CONFIG.username,
           password: CONFIG.password,
         });
-
-        return this.client;
       })
       .catch((error) => {
         console.log(error);

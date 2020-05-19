@@ -81,14 +81,12 @@ var MQTTService = /** @class */ (function () {
         });
     };
     MQTTService.prototype.clientMqtt = function (CONFIG) {
-        var _this = this;
         return this._load("mqtt")
             .then(function (data) {
-            _this.client = mqtt.connect(CONFIG.host, {
+            return mqtt.connect(CONFIG.host, {
                 username: CONFIG.username,
                 password: CONFIG.password,
             });
-            return _this.client;
         })
             .catch(function (error) {
             console.log(error);
