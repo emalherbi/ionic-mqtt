@@ -1,129 +1,94 @@
 import { Injectable } from "@angular/core";
 
-// mqtt
-declare const Paho: any;
+declare const mqtt: any;
 declare const document: any;
 
 @Injectable()
-
 export class MQTTService {
-
   public client: any;
-  private scripts: any = {}; 
-  private ScriptStore: Scripts[] = [
-    {
-      name: 'paho_mqtt', src: 'https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js'
-    }
-  ];
+  private scripts: any = {};
 
   constructor() {
-    this.ScriptStore.forEach((script: any) => {
-        this.scripts[script.name] = {
-            loaded: false,
-            src: script.src
-        };
+    [
+      {
+        name: "mqtt",
+        src: "https://unpkg.com/mqtt/dist/mqtt.min.js",
+      },
+    ].forEach((script: any) => {
+      this.scripts[script.name] = {
+        loaded: false,
+        src: script.src,
+      };
     });
   }
 
-  // load script
   private _load(...scripts: string[]) {
-      var promises: any[] = [];
-      scripts.forEach((script) => promises.push(this._loadScript(script)));
-      return Promise.all(promises);
+    var promises: any[] = [];
+    scripts.forEach((script) => promises.push(this._script(script)));
+    return Promise.all(promises);
   }
 
-  private _loadScript(name: string) {
-      return new Promise((resolve, reject) => {
-          //resolve if already loaded
-          if (this.scripts[name].loaded) {
-              resolve({name, loaded: true, status: 'Already Loaded'});
-          }
-          else {
-              //load script
-              let script = document.createElement('script');
-              script.type = 'text/javascript';
-              script.src = this.scripts[name].src;
-              if (script.readyState) {  //IE
-                  script.onreadystatechange = () => {
-                      if (script.readyState === "loaded" || script.readyState === "complete") {
-                          script.onreadystatechange = null;
-                          this.scripts[name].loaded = true;
-                          resolve({name, loaded: true, status: 'Loaded', script, src: script.src});
-                      }
-                  };
-              } else {  //Others
-                  script.onload = () => {
-                      this.scripts[name].loaded = true;
-                      resolve({name, loaded: true, status: 'Loaded', script, src: script.src});
-                  };
-              }
-              script.onerror = (error: any) => resolve({name, loaded: false, status: 'Loaded'});
-              document.getElementsByTagName('head')[0].appendChild(script);
-          }
+  private _script(name: string) {
+    return new Promise((resolve, reject) => {
+      if (this.scripts[name].loaded) {
+        resolve({ name, loaded: true, status: "Already Loaded" });
+      } else {
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = this.scripts[name].src;
+        if (script.readyState) {
+          // IE
+          script.onreadystatechange = () => {
+            if (
+              script.readyState === "loaded" ||
+              script.readyState === "complete"
+            ) {
+              script.onreadystatechange = null;
+              this.scripts[name].loaded = true;
+              resolve({
+                name,
+                loaded: true,
+                status: "Loaded",
+                script,
+                src: script.src,
+              });
+            }
+          };
+        } else {
+          script.onload = () => {
+            this.scripts[name].loaded = true;
+            resolve({
+              name,
+              loaded: true,
+              status: "Loaded",
+              script,
+              src: script.src,
+            });
+          };
+        }
+        script.onerror = (error: any) =>
+          resolve({ name, loaded: false, status: "Loaded" });
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
+    });
+  }
+
+  public clientMqtt(CONFIG: {
+    host: string;
+    username?: string;
+    password?: string;
+  }): any {
+    return this._load("mqtt")
+      .then((data) => {
+        this.client = mqtt.connect(CONFIG.host, {
+          username: CONFIG.username,
+          password: CONFIG.password,
+        });
+
+        return this.client;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
-
-  // mqtt
-  // Load the paho-mqtt mqtt and create a client instance
-  public loadingMqtt(onConnectionLost, onMessageArrived, TOPIC: string[], MQTT_CONFIG: {
-      host: string,
-      port: number,
-      clientId: string,
-      path?: string,
-      userName?: string,
-      password?: string,
-    }): any {
-    return this._load('paho_mqtt').then(data => {
-      // set callback handlers
-      this.client = new Paho.Client(MQTT_CONFIG.host, Number(MQTT_CONFIG.port), MQTT_CONFIG.path || "/mqtt", MQTT_CONFIG.clientId);
-      this.client.onConnectionLost = onConnectionLost.bind(this);
-      this.client.onMessageArrived = onMessageArrived.bind(this);
-      // client connect and subscribe
-      // console.log(this.client);
-      return this.client.connect({
-        userName: MQTT_CONFIG.userName || '',
-        password: MQTT_CONFIG.password || '',
-        onSuccess: this._onConnect.bind(this, TOPIC)
-      });
-    }).catch(error => {
-      console.log(error);
-    });
-  };
-
-  public publishMessage(topic: string, playload: string, qos?: number, retained?: boolean): void {
-      // console.log('msg, topic', topic, playload);
-      var message = new Paho.Message(playload);
-      message.topic = topic;
-      qos ? message.qos = qos : undefined;
-      qos ? message.retained = retained : undefined;
-      this.client.publish(message);
-    };
-
-
-  public sendMessage(topic: string, playload: string, qos?: number, retained?: boolean): void {
-    // console.log('msg, topic', topic, playload);
-    var message = new Paho.Message(playload);
-    message.topic = topic;
-    qos ? message.qos = qos : undefined;
-    qos ? message.retained = retained : undefined;
-    this.client.send(message);
-  };
-
-  // called when the client connects
-  private _onConnect(topic: string[]) {
-    // Once a connection has been made, make a subscription and send a message.
-    // console.log("onConnect");
-    // subscribe the topic
-    topic.forEach((tp) => {
-      this.client.subscribe(tp);
-    });
-
-    return this.client;
-  }
-}
-
-
-interface Scripts {
-   name: string;
-   src: string;
 }
