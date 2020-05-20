@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 
+declare const mqtt: any;
 declare const document: any;
 
 @Injectable()
-export class JSUtilsService {
+export class IonicMqttService {
   private scripts: any = {};
 
   constructor() {
@@ -71,7 +72,22 @@ export class JSUtilsService {
     });
   }
 
-  public load(name: string): any {
-    return this._load(name);
+  public connect(CONFIG: {
+    host: string;
+    username: string;
+    password: string;
+    rejectUnauthorized: boolean;
+  }): any {
+    return this._load("mqtt")
+      .then((data) => {
+        return mqtt.connect(CONFIG.host, {
+          username: CONFIG.username,
+          password: CONFIG.password,
+          rejectUnauthorized: CONFIG.rejectUnauthorized,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

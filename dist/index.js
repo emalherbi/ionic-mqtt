@@ -1,3 +1,3 @@
-export * from "./jsutils.module";
-export * from "./providers/jsutils-provider";
+export * from "./ionic-mqtt.module";
+export * from "./providers/ionic-mqtt.provider";
 //# sourceMappingURL=index.js.map

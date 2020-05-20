@@ -5,27 +5,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { NgModule } from "@angular/core";
-import { JSUtilsService } from "./providers/jsutils-provider";
+import { IonicMqttService } from "./providers/ionic-mqtt.provider";
 import { IonicModule } from "@ionic/angular";
-var JSUtilsModule = /** @class */ (function () {
-    function JSUtilsModule() {
+var IonicMqttModule = /** @class */ (function () {
+    function IonicMqttModule() {
     }
-    JSUtilsModule_1 = JSUtilsModule;
-    JSUtilsModule.forRoot = function () {
+    IonicMqttModule_1 = IonicMqttModule;
+    IonicMqttModule.forRoot = function () {
         return {
-            ngModule: JSUtilsModule_1,
-            providers: [JSUtilsService],
+            ngModule: IonicMqttModule_1,
+            providers: [IonicMqttService],
         };
     };
-    var JSUtilsModule_1;
-    JSUtilsModule = JSUtilsModule_1 = __decorate([
+    var IonicMqttModule_1;
+    IonicMqttModule = IonicMqttModule_1 = __decorate([
         NgModule({
             imports: [IonicModule],
             declarations: [],
             exports: [],
         })
-    ], JSUtilsModule);
-    return JSUtilsModule;
+    ], IonicMqttModule);
+    return IonicMqttModule;
 }());
-export { JSUtilsModule };
-//# sourceMappingURL=jsutils.module.js.map
+export { IonicMqttModule };
+//# sourceMappingURL=ionic-mqtt.module.js.map

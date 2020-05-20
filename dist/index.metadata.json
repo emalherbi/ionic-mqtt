@@ -1,1 +1,1 @@
-[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./jsutils.module"},{"from":"./providers/jsutils-provider"}]}]
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./ionic-mqtt.module"},{"from":"./providers/ionic-mqtt.provider"}]}]

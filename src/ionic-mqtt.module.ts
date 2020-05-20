@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
-import { JSUtilsService } from "./providers/jsutils-provider";
+import { IonicMqttService } from "./providers/ionic-mqtt.provider";
 import { IonicModule } from "@ionic/angular";
 
 @NgModule({
@@ -7,11 +7,11 @@ import { IonicModule } from "@ionic/angular";
   declarations: [],
   exports: [],
 })
-export class JSUtilsModule {
+export class IonicMqttModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: JSUtilsModule,
-      providers: [JSUtilsService],
+      ngModule: IonicMqttModule,
+      providers: [IonicMqttService],
     };
   }
 }

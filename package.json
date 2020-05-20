@@ -1,6 +1,6 @@
 {
   "name": "ionic-mqtt",
-  "version": "1.1.5",
+  "version": "1.0.0",
   "description": "A Simple Ionic Mqtt Service Package",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

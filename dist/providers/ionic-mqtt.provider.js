@@ -8,8 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from "@angular/core";
-var JSUtilsService = /** @class */ (function () {
-    function JSUtilsService() {
+var IonicMqttService = /** @class */ (function () {
+    function IonicMqttService() {
         var _this = this;
         this.scripts = {};
         [
@@ -24,7 +24,7 @@ var JSUtilsService = /** @class */ (function () {
             };
         });
     }
-    JSUtilsService.prototype._load = function () {
+    IonicMqttService.prototype._load = function () {
         var _this = this;
         var scripts = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -34,7 +34,7 @@ var JSUtilsService = /** @class */ (function () {
         scripts.forEach(function (script) { return promises.push(_this._script(script)); });
         return Promise.all(promises);
     };
-    JSUtilsService.prototype._script = function (name) {
+    IonicMqttService.prototype._script = function (name) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.scripts[name].loaded) {
@@ -80,14 +80,24 @@ var JSUtilsService = /** @class */ (function () {
             }
         });
     };
-    JSUtilsService.prototype.load = function (name) {
-        return this._load(name);
+    IonicMqttService.prototype.connect = function (CONFIG) {
+        return this._load("mqtt")
+            .then(function (data) {
+            return mqtt.connect(CONFIG.host, {
+                username: CONFIG.username,
+                password: CONFIG.password,
+                rejectUnauthorized: CONFIG.rejectUnauthorized,
+            });
+        })
+            .catch(function (error) {
+            console.log(error);
+        });
     };
-    JSUtilsService = __decorate([
+    IonicMqttService = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [])
-    ], JSUtilsService);
-    return JSUtilsService;
+    ], IonicMqttService);
+    return IonicMqttService;
 }());
-export { JSUtilsService };
-//# sourceMappingURL=jsutils-provider.js.map
+export { IonicMqttService };
+//# sourceMappingURL=ionic-mqtt.provider.js.map
