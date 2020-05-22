@@ -11,8 +11,9 @@
     "lib": ["dom", "es2015"],
     "outDir": "dist"
   },
-  "exclude": ["node_modules", "dist", "scripts", "src-old"],
+  "exclude": ["node_modules", "dist", "scripts"],
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true
+    "skipTemplateCodegen": true,
+    "enableIvy": false
   }
 }
