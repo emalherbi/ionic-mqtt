@@ -12,7 +12,7 @@ export class IonicMqttService {
       {
         name: 'mqtt',
         // src: 'https://unpkg.com/mqtt/dist/mqtt.min.js',
-        src: '../lib/mqtt/mqtt.js',
+        src: 'https://raw.githubusercontent.com/emalherbi/ionic-mqtt/master/src/lib/mqtt/mqtt.js',
       },
     ].forEach((script: any) => {
       this.scripts[script.name] = {
