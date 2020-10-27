@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,qBAAqB,CAAC;AACpC,cAAc,iCAAiC,CAAC","sourcesContent":["export * from \"./ionic-mqtt.module\";\nexport * from \"./providers/ionic-mqtt.provider\";\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,qBAAqB,CAAC;AACpC,cAAc,iCAAiC,CAAC","sourcesContent":["export * from './ionic-mqtt.module';\nexport * from './providers/ionic-mqtt.provider';\n"]}

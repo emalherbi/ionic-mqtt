@@ -7,15 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 var IonicMqttService = /** @class */ (function () {
     function IonicMqttService() {
         var _this = this;
         this.scripts = {};
         [
             {
-                name: "mqtt",
-                src: "https://unpkg.com/mqtt/dist/mqtt.min.js",
+                name: 'mqtt',
+                // src: 'https://unpkg.com/mqtt/dist/mqtt.min.js',
+                src: '../lib/mqtt/mqtt.js',
             },
         ].forEach(function (script) {
             _this.scripts[script.name] = {
@@ -38,23 +39,22 @@ var IonicMqttService = /** @class */ (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (_this.scripts[name].loaded) {
-                resolve({ name: name, loaded: true, status: "Already Loaded" });
+                resolve({ name: name, loaded: true, status: 'Already Loaded' });
             }
             else {
-                var script_1 = document.createElement("script");
-                script_1.type = "text/javascript";
+                var script_1 = document.createElement('script');
+                script_1.type = 'text/javascript';
                 script_1.src = _this.scripts[name].src;
                 if (script_1.readyState) {
                     // IE
                     script_1.onreadystatechange = function () {
-                        if (script_1.readyState === "loaded" ||
-                            script_1.readyState === "complete") {
+                        if (script_1.readyState === 'loaded' || script_1.readyState === 'complete') {
                             script_1.onreadystatechange = null;
                             _this.scripts[name].loaded = true;
                             resolve({
                                 name: name,
                                 loaded: true,
-                                status: "Loaded",
+                                status: 'Loaded',
                                 script: script_1,
                                 src: script_1.src,
                             });
@@ -67,21 +67,19 @@ var IonicMqttService = /** @class */ (function () {
                         resolve({
                             name: name,
                             loaded: true,
-                            status: "Loaded",
+                            status: 'Loaded',
                             script: script_1,
                             src: script_1.src,
                         });
                     };
                 }
-                script_1.onerror = function (error) {
-                    return resolve({ name: name, loaded: false, status: "Loaded" });
-                };
-                document.getElementsByTagName("head")[0].appendChild(script_1);
+                script_1.onerror = function (error) { return resolve({ name: name, loaded: false, status: 'Loaded' }); };
+                document.getElementsByTagName('head')[0].appendChild(script_1);
             }
         });
     };
     IonicMqttService.prototype.connect = function (CONFIG) {
-        return this._load("mqtt")
+        return this._load('mqtt')
             .then(function (data) {
             return mqtt.connect(CONFIG.host, {
                 username: CONFIG.username,

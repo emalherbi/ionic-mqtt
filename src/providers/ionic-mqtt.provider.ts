@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 declare const mqtt: any;
 declare const document: any;
@@ -10,8 +10,9 @@ export class IonicMqttService {
   constructor() {
     [
       {
-        name: "mqtt",
-        src: "https://unpkg.com/mqtt/dist/mqtt.min.js",
+        name: 'mqtt',
+        // src: 'https://unpkg.com/mqtt/dist/mqtt.min.js',
+        src: '../lib/mqtt/mqtt.js',
       },
     ].forEach((script: any) => {
       this.scripts[script.name] = {
@@ -30,24 +31,21 @@ export class IonicMqttService {
   private _script(name: string) {
     return new Promise((resolve, reject) => {
       if (this.scripts[name].loaded) {
-        resolve({ name, loaded: true, status: "Already Loaded" });
+        resolve({ name, loaded: true, status: 'Already Loaded' });
       } else {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
         script.src = this.scripts[name].src;
         if (script.readyState) {
           // IE
           script.onreadystatechange = () => {
-            if (
-              script.readyState === "loaded" ||
-              script.readyState === "complete"
-            ) {
+            if (script.readyState === 'loaded' || script.readyState === 'complete') {
               script.onreadystatechange = null;
               this.scripts[name].loaded = true;
               resolve({
                 name,
                 loaded: true,
-                status: "Loaded",
+                status: 'Loaded',
                 script,
                 src: script.src,
               });
@@ -59,26 +57,20 @@ export class IonicMqttService {
             resolve({
               name,
               loaded: true,
-              status: "Loaded",
+              status: 'Loaded',
               script,
               src: script.src,
             });
           };
         }
-        script.onerror = (error: any) =>
-          resolve({ name, loaded: false, status: "Loaded" });
-        document.getElementsByTagName("head")[0].appendChild(script);
+        script.onerror = (error: any) => resolve({ name, loaded: false, status: 'Loaded' });
+        document.getElementsByTagName('head')[0].appendChild(script);
       }
     });
   }
 
-  public connect(CONFIG: {
-    host: string;
-    username: string;
-    password: string;
-    rejectUnauthorized: boolean;
-  }): any {
-    return this._load("mqtt")
+  public connect(CONFIG: { host: string; username: string; password: string; rejectUnauthorized: boolean }): any {
+    return this._load('mqtt')
       .then((data) => {
         return mqtt.connect(CONFIG.host, {
           username: CONFIG.username,
