@@ -71,13 +71,12 @@ export class IonicMqttService {
     });
   }
 
-  public connect(CONFIG: { host: string; username: string; password: string; rejectUnauthorized: boolean }): any {
+  public connect(CONFIG: { host: string; username: string; password: string }): any {
     return this._load('mqtt')
       .then((data) => {
         return mqtt.connect(CONFIG.host, {
           username: CONFIG.username,
           password: CONFIG.password,
-          rejectUnauthorized: CONFIG.rejectUnauthorized,
         });
       })
       .catch((error) => {

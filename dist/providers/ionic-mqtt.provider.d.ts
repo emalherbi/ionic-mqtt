@@ -7,6 +7,5 @@ export declare class IonicMqttService {
         host: string;
         username: string;
         password: string;
-        rejectUnauthorized: boolean;
     }): any;
 }

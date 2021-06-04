@@ -83,7 +83,6 @@ var IonicMqttService = /** @class */ (function () {
             return mqtt.connect(CONFIG.host, {
                 username: CONFIG.username,
                 password: CONFIG.password,
-                rejectUnauthorized: CONFIG.rejectUnauthorized,
             });
         })
             .catch(function (error) {
