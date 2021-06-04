@@ -15,10 +15,7 @@ var IonicMqttService = /** @class */ (function () {
         [
             {
                 name: 'mqtt',
-                // src: 'https://unpkg.com/mqtt/dist/mqtt.min.js',
-                // src: '../lib/mqtt/mqtt.js',
-                // src: 'https://unpkg.com/mqtt@4.0.0/dist/mqtt.min.js',
-                src: 'https://unpkg.com/mqtt@4.1.0/dist/mqtt.js',
+                src: '../lib/mqtt/mqtt.js',
             },
         ].forEach(function (script) {
             _this.scripts[script.name] = {
